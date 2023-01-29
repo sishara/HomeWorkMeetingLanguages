@@ -1,24 +1,27 @@
-﻿// Задача 10: Напишите программу, которая принимает на вход трёхзначное число и на выходе показывает вторую цифру этого числа.
+﻿ // Задача 13: Напишите программу, которая выводит третью цифру заданного числа или сообщает, что третьей цифры нет.
 
-// 456 -> 5
-// 782 -> 8
-// 918 -> 1
+// // 645 -> 5
+
+// // 78 -> третьей цифры нет
+
+// 32679 -> 6
 
 Console.Clear();
 Console.WriteLine("Знакомство с языками программирования (семинары)");
 Console.WriteLine("Урок 2. Базовые алгоритмы , С#");
 
-Console.WriteLine("Input number in range 100-999 :");
+Console.WriteLine("Input number:");
 int n = Convert.ToInt32(Console.ReadLine());
-
-
-if (n < 100 || n > 999 )
+string result = "третьей цифры нет";
+if (n >=100)
 {
-    Console.WriteLine("Wrong number");
-    return;
+    while(n >1000)
+    {
+        n = n / 10;
+    }
+    result = Convert.ToString(n % 10);
 }
-int result = n / 10;
-result = result % 10;
+
 
 
 Console.WriteLine("-------------------Result-------------------");
