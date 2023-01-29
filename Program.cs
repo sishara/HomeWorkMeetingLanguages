@@ -1,29 +1,23 @@
-﻿ // Задача 13: Напишите программу, которая выводит третью цифру заданного числа или сообщает, что третьей цифры нет.
+﻿// Задача 15: Напишите программу, которая принимает на вход цифру, обозначающую день недели, и проверяет, является ли этот день выходным.
 
-// // 645 -> 5
+// 6 -> да
+// 7 -> да
+// 1 -> нет
 
-// // 78 -> третьей цифры нет
-
-// 32679 -> 6
 
 Console.Clear();
 Console.WriteLine("Знакомство с языками программирования (семинары)");
 Console.WriteLine("Урок 2. Базовые алгоритмы , С#");
 
-Console.WriteLine("Input number:");
+Console.WriteLine("Input number in range 1-7:");
 int n = Convert.ToInt32(Console.ReadLine());
-string result = "третьей цифры нет";
-if (n >=100)
+
+string Result = "No";
+if ((n == 6 || n == 7))
 {
-    while(n >1000)
-    {
-        n = n / 10;
-    }
-    result = Convert.ToString(n % 10);
+    Result = "Yes";
 }
-
-
-
 Console.WriteLine("-------------------Result-------------------");
-Console.WriteLine(result);
+//Console.WriteLine((n == 6 || n == 7));
+Console.WriteLine(Result);
 Console.WriteLine("-------------------Result-------------------");
