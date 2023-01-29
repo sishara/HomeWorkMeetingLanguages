@@ -1,31 +1,26 @@
-﻿//Задача 4: Напишите программу, которая принимает на вход три числа и выдаёт максимальное из этих чисел.
+﻿// Задача 6: Напишите программу, которая на вход принимает число и выдаёт, является ли число чётным (делится ли оно на два без остатка).
 
-//2, 3, 7 -> 7
-//44 5 78 -> 78
-//22 3 9 -> 22
+// 4 -> да
+// -3 -> нет
+// 7 -> нет
 
 Console.Clear();
 Console.WriteLine("Знакомство с языками программирования (семинары)");
 Console.WriteLine("Урок 1. Знакомство с языком программирования С#");
 
-Console.WriteLine("Input first number");
-int n1 = Convert.ToInt32(Console.ReadLine());
-Console.WriteLine("Input second number");
-int n2 = Convert.ToInt32(Console.ReadLine());
-Console.WriteLine("Input third number");
-int n3 = Convert.ToInt32(Console.ReadLine());
+Console.WriteLine("Input number");
+int n = Convert.ToInt32(Console.ReadLine());
 
-int max = n1;
-if (n2 > n1)
+string result = "Yes";
+
+
+if ( n % 2 != 0)
 {
-    max = n2;
+    result = "No";
  
 }
-if (n3> max)
-{
-    max = n3;
-}
+
 
 Console.WriteLine("-------------------Result-------------------");
-Console.WriteLine(max);
+Console.WriteLine(result);
 Console.WriteLine("-------------------Result-------------------");
