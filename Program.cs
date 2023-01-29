@@ -1,27 +1,24 @@
-﻿// Задача 8: Напишите программу, которая на вход принимает число (N), а на выходе показывает все чётные числа от 1 до N.
+﻿// Задача 10: Напишите программу, которая принимает на вход трёхзначное число и на выходе показывает вторую цифру этого числа.
 
-// 5 -> 2, 4
-// 8 -> 2, 4, 6, 8
+// 456 -> 5
+// 782 -> 8
+// 918 -> 1
 
 Console.Clear();
 Console.WriteLine("Знакомство с языками программирования (семинары)");
-Console.WriteLine("Урок 1. Знакомство с языком программирования С#");
+Console.WriteLine("Урок 2. Базовые алгоритмы , С#");
 
-Console.WriteLine("Input number");
+Console.WriteLine("Input number in range 100-999 :");
 int n = Convert.ToInt32(Console.ReadLine());
-string result = "";
-if (n < 1)
+
+
+if (n < 100 || n > 999 )
 {
+    Console.WriteLine("Wrong number");
     return;
 }
-
-for (int i = 1; i <= n; i++)
-{
-    if (i % 2 == 0)
-    {
-        result = result + i + ",";
-    }
-}
+int result = n / 10;
+result = result % 10;
 
 
 Console.WriteLine("-------------------Result-------------------");
