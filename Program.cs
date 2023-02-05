@@ -1,42 +1,38 @@
 ﻿// Урок 3. Базовые алгоритмы. Продолжение
 
-// Задача 19
+// Задача 21
 
-// Напишите программу, которая принимает на вход пятизначное число и проверяет, является ли оно палиндромом.
+// Напишите программу, которая принимает на вход координаты двух точек и находит расстояние между ними в 3D пространстве.
 
-// 14212 -> нет
+// A (3,6,8); B (2,1,-7), -> 15.84
 
-// 12821 -> да
-
-// 23432 -> да
+// A (7,-5, 0); B (1,-1,9) -> 11.53
 
 
 Console.Clear();
 Console.WriteLine("Знакомство с языками программирования (семинары)");
 Console.WriteLine("Урок 3. Базовые алгоритмы. Продолжение");
 
-int number = 0;
-string stringNumber = "";
-string result = "No";
-while (number / 10000 < 1 || number / 10000 > 10)
-{
-    Console.WriteLine("Input 5 length digits number:");
-    stringNumber = Console.ReadLine();
-    try
-    {
-        number = Convert.ToInt32(stringNumber);
-    }
-    catch (System.Exception)
-    {
-        Console.WriteLine("Wrong input !");
-    }
+double result = 0;
 
+int[] A = new int[3];
+int[] B = new int[3];
+
+Console.WriteLine("Input 3D coordinates for A");
+// Нормализации данных пока не занимаемся по этому все проверки на не цифры и null пропускаю
+for (int i = 0; i < A.Length; i++)
+{
+    A[i] = Convert.ToInt32(Console.ReadLine());
+};
+Console.WriteLine("Input 3D coordinates for B");
+
+for (int i = 0; i < B.Length; i++)
+{
+    B[i] = Convert.ToInt32(Console.ReadLine());
 };
 
-if (stringNumber[0] == stringNumber[4] && stringNumber[1] == stringNumber[3])
-{
-    result = "Yes";
-};
+result = Math.Round(Math.Sqrt(Math.Pow((A[0] - B[0]),2) + Math.Pow((A[1] - B[1]),2) + Math.Pow((A[2] - B[2]),2)),2);
+
 Console.WriteLine("-------------------Result-------------------");
 Console.WriteLine(result);
 Console.WriteLine("-------------------Result-------------------");
