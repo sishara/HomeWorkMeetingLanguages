@@ -1,51 +1,42 @@
-﻿// Дополнительная задача(https://acmp.ru/asp/do/index.asp?main=task&id_course=1&id_section=3&id_topic=35&id_problem=223)
+﻿// Урок 3. Базовые алгоритмы. Продолжение
 
-// Второй максимум
-// (Время: 1 сек. Память: 16 Мб Сложность: 16%)
-// Задана последовательность натуральных чисел, завершающаяся числом 0. Требуется определить значение второго по величине элемента в этой последовательности, 
-//то есть элемента, который будет наибольшим, если из последовательности удалить наибольший элемент.
+// Задача 19
 
-// Входные данные
-// Входной файл INPUT.TXT содержит последовательность неотрицательных целых чисел, не превышающих значения 100. Гарантируется, 
-//что во входных данных не более 100 чисел и среди них есть хотя бы одно число 0, перед которым идет как минимум 2 элемента.
+// Напишите программу, которая принимает на вход пятизначное число и проверяет, является ли оно палиндромом.
 
-// Выходные данные
-// В выходной файл OUTPUT.TXT выведите целое число – значение второго максимума.
+// 14212 -> нет
 
-// Примеры
-// №	INPUT.TXT	OUTPUT.TXT
-// 1	1 7 9 0	7
-// 2	1 2 3 4 5 6 7 0 8 9 10
+// 12821 -> да
+
+// 23432 -> да
 
 
 Console.Clear();
 Console.WriteLine("Знакомство с языками программирования (семинары)");
-Console.WriteLine("Урок 2. Базовые алгоритмы , С#");
+Console.WriteLine("Урок 3. Базовые алгоритмы. Продолжение");
 
-Console.WriteLine("Input at last 3 numbers in range 1-100 . When u input 0 your input sequence is done.");
-
-int n = Convert.ToInt32(Console.ReadLine());
-
-int max1 = n;
-int max2 = n;
-
-while (n != 0)
+int number = 0;
+string stringNumber = "";
+string result = "No";
+while (number / 10000 < 1 || number / 10000 > 10)
 {
-    n = Convert.ToInt32(Console.ReadLine());
-    if (n > max1)
+    Console.WriteLine("Input 5 length digits number:");
+    stringNumber = Console.ReadLine();
+    try
     {
-      max2 = max1;
-      max1 = n;
-    }else
-    {
-        if (max1 == max2 || n > max2)
-        {
-            max2 = n;
-        }
-
+        number = Convert.ToInt32(stringNumber);
     }
-    
-}
+    catch (System.Exception)
+    {
+        Console.WriteLine("Wrong input !");
+    }
+
+};
+
+if (stringNumber[0] == stringNumber[4] && stringNumber[1] == stringNumber[3])
+{
+    result = "Yes";
+};
 Console.WriteLine("-------------------Result-------------------");
-Console.WriteLine(max2);
+Console.WriteLine(result);
 Console.WriteLine("-------------------Result-------------------");
