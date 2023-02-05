@@ -1,38 +1,33 @@
-﻿// Урок 3. Базовые алгоритмы. Продолжение
+﻿// Задача 23
 
-// Задача 21
+// Напишите программу, которая принимает на вход число (N) и выдаёт таблицу кубов чисел от 1 до N.
 
-// Напишите программу, которая принимает на вход координаты двух точек и находит расстояние между ними в 3D пространстве.
-
-// A (3,6,8); B (2,1,-7), -> 15.84
-
-// A (7,-5, 0); B (1,-1,9) -> 11.53
+// 3 -> 1, 8, 27
+// 5 -> 1, 8, 27, 64, 125
 
 
 Console.Clear();
 Console.WriteLine("Знакомство с языками программирования (семинары)");
 Console.WriteLine("Урок 3. Базовые алгоритмы. Продолжение");
 
-double result = 0;
-
-int[] A = new int[3];
-int[] B = new int[3];
-
-Console.WriteLine("Input 3D coordinates for A");
-// Нормализации данных пока не занимаемся по этому все проверки на не цифры и null пропускаю
-for (int i = 0; i < A.Length; i++)
+Console.WriteLine("Input number N :");
+int n = 0;
+while (n == 0)
 {
-    A[i] = Convert.ToInt32(Console.ReadLine());
-};
-Console.WriteLine("Input 3D coordinates for B");
+    try
+    {
+        n = Convert.ToInt32(Console.ReadLine());
+    }
+    catch (System.Exception)
+    {
+        Console.WriteLine("Input correct number N :");
+    }
 
-for (int i = 0; i < B.Length; i++)
-{
-    B[i] = Convert.ToInt32(Console.ReadLine());
 };
 
-result = Math.Round(Math.Sqrt(Math.Pow((A[0] - B[0]),2) + Math.Pow((A[1] - B[1]),2) + Math.Pow((A[2] - B[2]),2)),2);
-
 Console.WriteLine("-------------------Result-------------------");
-Console.WriteLine(result);
-Console.WriteLine("-------------------Result-------------------");
+for (int i = 1; i <= n; i++)
+{
+    Console.Write(i * i * i + ", ");
+};
+Console.WriteLine("\n-------------------Result-------------------");
