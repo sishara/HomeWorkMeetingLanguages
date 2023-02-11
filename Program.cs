@@ -1,43 +1,27 @@
-﻿//  ЗАДАЧА №323
-// Гипотеза Гольдбаха
-// (Время: 1 сек. Память: 16 Мб Сложность: 30%)
-// Известно, что любое чётное число, большее 2, представимо в виде суммы 2 простых чисел, причём таких разложений может быть несколько.
-//  Впервые гипотезу о существовании данного разложения сформулировал математик Х. Гольдбах.
+﻿// Задача 34: Задайте массив заполненный случайными положительными трёхзначными числами. Напишите программу, которая покажет количество чётных чисел в массиве.
 
-// Требуется написать программу, производящую согласно утверждению Гольдбаха, разложение заданного чётного числа. Из всех пар простых чисел, 
-// сумма которых равна заданному числу, требуется найти пару, содержащую наименьшее простое число.
-
-// Входные данные
-// Входной файл INPUT.TXT содержит чётное число N (4 ≤ N ≤ 998).
-
-// Выходные данные
-// В выходной файл OUTPUT.TXT необходимо вывести два простых числа, сумма которых равна числу N. Первым выводится наименьшее число.
-
-// Примеры
-// №	INPUT.TXT	OUTPUT.TXT
-// 1	6	            3 3
-// 2	992	            73 919
+// [345, 897, 568, 234] -> 2
 
 
 void PrepareProgramHeader()
 {
     Console.Clear();
     Console.WriteLine("Знакомство с языками программирования (семинары)");
-    Console.WriteLine("Урок 4. Функции . Доп ЗАДАЧА №323 . Гипотеза Гольдбаха");
+    Console.WriteLine("Урок 5. Функции и одномерные массивы.Задача 34");
 }
 
-int InputCoorectPairNumberGreaterThenTwo()
+int InputCoorectNumberInRange(int beginRange, int endRange, string Message)
 {
-    int pairNumber = 3;
-    string buildedMessage = $"Intput pair number greater than 2:";
-    Console.WriteLine(buildedMessage);
+    int numberInRange = 0;
+    string buildedMessage = $"Intput {Message} in range ({beginRange} < N <= {endRange}):";
+    Console.Write(buildedMessage);
 
-    while (pairNumber <= 2 || pairNumber % 2 == 1)
+    while (numberInRange < beginRange || numberInRange > endRange)
     {
         try
         {
-            pairNumber = Convert.ToInt32(Console.ReadLine());
-            if (pairNumber <= 2 || pairNumber % 2 == 1)
+            numberInRange = Convert.ToInt32(Console.ReadLine());
+            if (numberInRange < beginRange || numberInRange > endRange)
             {
                 Console.WriteLine($"Incorrect input ." + buildedMessage);
             }
@@ -45,73 +29,46 @@ int InputCoorectPairNumberGreaterThenTwo()
         catch (System.Exception)
         {
             Console.WriteLine($"Incorrect input ." + buildedMessage);
-            pairNumber = 3;
+            numberInRange = 0;
             ;
         }
 
     };
-    return pairNumber;
+    return numberInRange;
 }
 
-bool NumberIsPrime(int number)
+int[] FillIntArray(int itemNumbers, int beginRange, int endRange)
 {
-    int divisor = 2,
-        divisionCount = 0;
-
-    while (number > 1)
+    int[] result = new int[itemNumbers];
+    for (int i = 0; i < result.Length; i++)
     {
-        while (number % divisor == 0)
-        {
-            divisionCount++;
-            if (divisionCount > 1)
-                return false;
-            number /= divisor;
-        }
-
-        if (divisionCount > 1)
-            return false;
-
-        divisor++;
-
-
-        if (number > 1 && divisor * divisor > number)
-        {
-            divisor = number;
-        }
+        result[i] = new Random().Next(beginRange, endRange + 1);
     }
 
-    return divisionCount <= 1;
+    return result;
 }
 
-string FindGoldbachsConjecture(int pairNumber)
+int countPairNumbersInArray(int[] array)
 {
-    string Result = pairNumber.ToString();
-
-    for (int i = 3; i < pairNumber; i += 2)
+    int result = 0;
+    for (int i = 0; i < array.Length / 2; i++)
     {
-        int difResult = pairNumber - i;
-        
-        if (!NumberIsPrime(i))
-            continue;
-       
-        if (!NumberIsPrime(difResult))
-            continue;
-
-        return "" + i + " " + difResult;
-
+        if (array[i] % 2 == 0)
+            result++;
+        if (array[array.Length - i - 1] % 2 == 0)
+            result++;
     }
-
-    return "Algorithm got errors or input data are bad";
-}
-
-
+    if (array.Length % 2 == 1 && array[array.Length / 2 + 1] % 2 == 0)
+        result++;
+    return result;
+};
 // ---------------------- MAIN PROGRAM -------------------------
 PrepareProgramHeader();
-int pairNumber = InputCoorectPairNumberGreaterThenTwo();
-string GoldbachsConjecture = FindGoldbachsConjecture(pairNumber);
+int numberOfElementsInArray = InputCoorectNumberInRange(1, 18, "Input number of items in array:");
+int[] arrayOfIntNumbers = FillIntArray(numberOfElementsInArray, 100, 999);
 
 Console.WriteLine("-------------------Result-------------------\n");
-Console.WriteLine($"Goldbach's conjecture  for number {pairNumber} is  {GoldbachsConjecture}");
+Console.WriteLine($"Count of pair numbers in [{string.Join(",", arrayOfIntNumbers)}] is  {countPairNumbersInArray(arrayOfIntNumbers)}");
 Console.WriteLine("\n-------------------Result-------------------");
 
 // ---------------------- MAIN PROGRAM -------------------------
