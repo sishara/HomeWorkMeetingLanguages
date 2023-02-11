@@ -1,44 +1,43 @@
-﻿// ЗАДАЧА №1220		
-// Суперсдвиг
-// (Время: 1 сек. Память: 16 Мб Сложность: 20%)
-// Дана последовательность из N целых чисел и число K. Необходимо сдвинуть всю последовательность (сдвиг - циклический) на |K| элементов вправо, если K – положительное и влево, 
-//если отрицательное.
+﻿//  ЗАДАЧА №323
+// Гипотеза Гольдбаха
+// (Время: 1 сек. Память: 16 Мб Сложность: 30%)
+// Известно, что любое чётное число, большее 2, представимо в виде суммы 2 простых чисел, причём таких разложений может быть несколько.
+//  Впервые гипотезу о существовании данного разложения сформулировал математик Х. Гольдбах.
+
+// Требуется написать программу, производящую согласно утверждению Гольдбаха, разложение заданного чётного числа. Из всех пар простых чисел, 
+// сумма которых равна заданному числу, требуется найти пару, содержащую наименьшее простое число.
 
 // Входные данные
-// Первая строка входного файла INPUT.TXT содержит натуральное число N, во второй строке записаны N целых чисел Ai, а в последней – целое число K. (1 ≤ N ≤ 105, |K| ≤ 105, |Ai| ≤ 100).
+// Входной файл INPUT.TXT содержит чётное число N (4 ≤ N ≤ 998).
 
 // Выходные данные
-// В выходной файл OUTPUT.TXT выведите полученную последовательность.
+// В выходной файл OUTPUT.TXT необходимо вывести два простых числа, сумма которых равна числу N. Первым выводится наименьшее число.
 
 // Примеры
 // №	INPUT.TXT	OUTPUT.TXT
-//5
-// 5 3 7 4 6        7 4 6 5 3
-// 3	
+// 1	6	            3 3
+// 2	992	            73 919
 
-//5
-//5 3 7 4 6        4 6 5 3 7
-//-3	
 
 void PrepareProgramHeader()
 {
     Console.Clear();
     Console.WriteLine("Знакомство с языками программирования (семинары)");
-    Console.WriteLine("Урок 4. Функции . Доп ЗАДАЧА №1220 . Суперсдвиг");
+    Console.WriteLine("Урок 4. Функции . Доп ЗАДАЧА №323 . Гипотеза Гольдбаха");
 }
 
-int InputCoorectNumberInRange(int beginRange, int endRange, string Message)
+int InputCoorectPairNumberGreaterThenTwo()
 {
-    int numberInRange = beginRange - 1;
-    string buildedMessage = $"Intput {Message} in range ({beginRange} < N <= {endRange}):";
+    int pairNumber = 3;
+    string buildedMessage = $"Intput pair number greater than 2:";
     Console.WriteLine(buildedMessage);
 
-    while (numberInRange < beginRange || numberInRange > endRange)
+    while (pairNumber <= 2 || pairNumber % 2 == 1)
     {
         try
         {
-            numberInRange = Convert.ToInt32(Console.ReadLine());
-            if (numberInRange < beginRange || numberInRange > endRange)
+            pairNumber = Convert.ToInt32(Console.ReadLine());
+            if (pairNumber <= 2 || pairNumber % 2 == 1)
             {
                 Console.WriteLine($"Incorrect input ." + buildedMessage);
             }
@@ -46,61 +45,73 @@ int InputCoorectNumberInRange(int beginRange, int endRange, string Message)
         catch (System.Exception)
         {
             Console.WriteLine($"Incorrect input ." + buildedMessage);
-            numberInRange = 0;
+            pairNumber = 3;
             ;
         }
 
     };
-    return numberInRange;
+    return pairNumber;
 }
 
-int[] FillIntArray(int itemNumbers, int beginRange, int endRange)
+bool NumberIsPrime(int number)
 {
-    int[] result = new int[itemNumbers];
-    for (int i = 0; i < result.Length; i++)
-    {
-        result[i] = new Random().Next(beginRange, endRange + 1);
-    }
+    int divisor = 2,
+        divisionCount = 0;
 
-    return result;
-}
-
-int[] MoveElementsInArray(int[] array, int move)
-{
-    int[] result = new int[array.Length];
-    for (int i = 0; i < array.Length; i++)
+    while (number > 1)
     {
-        int newIndex = i + move;
-        
-        if (newIndex < 0)
+        while (number % divisor == 0)
         {
-            newIndex =  array.Length + newIndex;
-        }else
-        {
-            int dif = newIndex - (array.Length-1);
-            if (dif >0)
-            {
-                newIndex =  dif -1;
-            }
+            divisionCount++;
+            if (divisionCount > 1)
+                return false;
+            number /= divisor;
         }
-        
-        result[newIndex] = array[i];
+
+        if (divisionCount > 1)
+            return false;
+
+        divisor++;
+
+
+        if (number > 1 && divisor * divisor > number)
+        {
+            divisor = number;
+        }
     }
-    return result;
+
+    return divisionCount <= 1;
 }
+
+string FindGoldbachsConjecture(int pairNumber)
+{
+    string Result = pairNumber.ToString();
+
+    for (int i = 3; i < pairNumber; i += 2)
+    {
+        int difResult = pairNumber - i;
+        
+        if (!NumberIsPrime(i))
+            continue;
+       
+        if (!NumberIsPrime(difResult))
+            continue;
+
+        return "" + i + " " + difResult;
+
+    }
+
+    return "Algorithm got errors or input data are bad";
+}
+
 
 // ---------------------- MAIN PROGRAM -------------------------
 PrepareProgramHeader();
-int beginRange = 1, endRange = 105;
-
-int numberOfElementsInArray = InputCoorectNumberInRange(beginRange, endRange, "number of elements in array");
-int[] array = FillIntArray(numberOfElementsInArray, 1, 100);
-int move = InputCoorectNumberInRange(-numberOfElementsInArray, numberOfElementsInArray, " number > 0 to move right , or number < 0 to move left ");
-int[] processedArray = MoveElementsInArray(array, move);
+int pairNumber = InputCoorectPairNumberGreaterThenTwo();
+string GoldbachsConjecture = FindGoldbachsConjecture(pairNumber);
 
 Console.WriteLine("-------------------Result-------------------\n");
-Console.WriteLine($"Initial   array  [{string.Join(",", array)}] ");
-Console.WriteLine($"Processed array  [{string.Join(",", processedArray)}] ");
+Console.WriteLine($"Goldbach's conjecture  for number {pairNumber} is  {GoldbachsConjecture}");
 Console.WriteLine("\n-------------------Result-------------------");
 
 // ---------------------- MAIN PROGRAM -------------------------
