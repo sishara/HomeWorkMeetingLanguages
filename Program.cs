@@ -1,13 +1,17 @@
-﻿// Задача 34: Задайте массив заполненный случайными положительными трёхзначными числами. Напишите программу, которая покажет количество чётных чисел в массиве.
+﻿// Задача 36: Задайте одномерный массив, заполненный случайными числами. Найдите сумму элементов, стоящих на нечётных позициях.
 
-// [345, 897, 568, 234] -> 2
+// [3, 7, 23, 12] -> 19
+
+// [-4, -6, 89, 6] -> 0
+
+
 
 
 void PrepareProgramHeader()
 {
     Console.Clear();
     Console.WriteLine("Знакомство с языками программирования (семинары)");
-    Console.WriteLine("Урок 5. Функции и одномерные массивы.Задача 34");
+    Console.WriteLine("Урок 5. Функции и одномерные массивы.Задача 36");
 }
 
 int InputCoorectNumberInRange(int beginRange, int endRange, string Message)
@@ -48,27 +52,25 @@ int[] FillIntArray(int itemNumbers, int beginRange, int endRange)
     return result;
 }
 
-int countPairNumbersInArray(int[] array)
+int countSumOfNumbersWtihPairIndexInArray(int[] array)
 {
     int result = 0;
-    for (int i = 0; i < array.Length / 2; i++)
+    for (int i = 0; i < array.Length; i++)
     {
-        if (array[i] % 2 == 0)
-            result++;
-        if (array[array.Length - i - 1] % 2 == 0)
-            result++;
+        if (i % 2 == 1)
+            result += array[i];
+        
     }
-    if (array.Length % 2 == 1 && array[array.Length / 2 + 1] % 2 == 0)
-        result++;
+    
     return result;
 };
 // ---------------------- MAIN PROGRAM -------------------------
 PrepareProgramHeader();
 int numberOfElementsInArray = InputCoorectNumberInRange(1, 18, "Input number of items in array:");
-int[] arrayOfIntNumbers = FillIntArray(numberOfElementsInArray, 100, 999);
+int[] arrayOfIntNumbers = FillIntArray(numberOfElementsInArray, -10000, 10000);
 
 Console.WriteLine("-------------------Result-------------------\n");
-Console.WriteLine($"Count of pair numbers in [{string.Join(",", arrayOfIntNumbers)}] is  {countPairNumbersInArray(arrayOfIntNumbers)}");
+Console.WriteLine($"Sum of numbers on pair position in [{string.Join(",", arrayOfIntNumbers)}] is  {countSumOfNumbersWtihPairIndexInArray(arrayOfIntNumbers)}");
 Console.WriteLine("\n-------------------Result-------------------");
 
 // ---------------------- MAIN PROGRAM -------------------------
