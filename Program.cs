@@ -17,7 +17,7 @@ void PrepareProgramHeader()
 int InputCoorectNumberInRange(int beginRange, int endRange, string Message)
 {
     int numberInRange = 0;
-    string buildedMessage = $"Intput {Message} in range ({beginRange} < N <= {endRange}):";
+    string buildedMessage = $"Intput {Message} in range ({beginRange} <= N <= {endRange}):";
     Console.Write(buildedMessage);
 
     while (numberInRange < beginRange || numberInRange > endRange)
@@ -57,7 +57,7 @@ int countSumOfNumbersWtihPairIndexInArray(int[] array)
     int result = 0;
     for (int i = 0; i < array.Length; i++)
     {
-        if (i % 2 == 1)
+        if (i % 2 == 0)
             result += array[i];
         
     }
@@ -70,7 +70,7 @@ int numberOfElementsInArray = InputCoorectNumberInRange(1, 18, "Input number of 
 int[] arrayOfIntNumbers = FillIntArray(numberOfElementsInArray, -10000, 10000);
 
 Console.WriteLine("-------------------Result-------------------\n");
-Console.WriteLine($"Sum of numbers on pair position in [{string.Join(",", arrayOfIntNumbers)}] is  {countSumOfNumbersWtihPairIndexInArray(arrayOfIntNumbers)}");
+Console.WriteLine($"Sum of numbers on non - pair position in [{string.Join(",", arrayOfIntNumbers)}] is  {countSumOfNumbersWtihPairIndexInArray(arrayOfIntNumbers)}");
 Console.WriteLine("\n-------------------Result-------------------");
 
 // ---------------------- MAIN PROGRAM -------------------------
