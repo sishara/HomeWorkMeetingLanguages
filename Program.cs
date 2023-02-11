@@ -1,94 +1,37 @@
-﻿// ЗАДАЧА №1218		
-// Шеренга
-// (Время: 1 сек. Память: 16 Мб Сложность: 18%)
-// Петя впервые пришел на урок физкультуры в новой школе. Перед началом урока ученики выстраиваются по росту, в порядке невозрастания. 
-//Напишите программу, которая определит на какое место в шеренге Пете нужно встать, чтобы не нарушить традицию, если заранее известен рост каждого ученика и эти данные уже расположены
-// по невозрастанию (то есть каждое следующее число не больше предыдущего). Если в классе есть несколько учеников с таким же ростом, как у Пети, то программа должна расположить его
-// после них.
+﻿// ЗАДАЧА №1220		
+// Суперсдвиг
+// (Время: 1 сек. Память: 16 Мб Сложность: 20%)
+// Дана последовательность из N целых чисел и число K. Необходимо сдвинуть всю последовательность (сдвиг - циклический) на |K| элементов вправо, если K – положительное и влево, 
+//если отрицательное.
 
 // Входные данные
-// Первая строка входного файла INPUT.TXT содержит натуральное число N (N ≤ 100) – количество учеников (не считая Петю). 
-//Во второй строке записаны N натуральных чисел Ai (Ai ≤ 200) – рост учеников в сантиметрах в порядке невозрастания.
-// Третья строка содержит единственное натуральное число X (X ≤ 200) – рост Пети.
+// Первая строка входного файла INPUT.TXT содержит натуральное число N, во второй строке записаны N целых чисел Ai, а в последней – целое число K. (1 ≤ N ≤ 105, |K| ≤ 105, |Ai| ≤ 100).
 
 // Выходные данные
-// В выходной файл OUTPUT.TXT выведите единственное целое число – номер Пети в шеренге учеников.
+// В выходной файл OUTPUT.TXT выведите полученную последовательность.
 
-// Пример
-// №	INPUT.TXT	                                OUTPUT.TXT
-// 1	8                                               3
-// 165 163 160 160 157 157 155 154
-// 162
+// Примеры
+// №	INPUT.TXT	OUTPUT.TXT
+//5
+// 5 3 7 4 6        7 4 6 5 3
+// 3	
 
-int FindPetyasNumber(int[] arryOfStudentsHeights, int PetyasHight)
+//5
+//5 3 7 4 6        4 6 5 3 7
+//-3	
+
+void PrepareProgramHeader()
 {
-    for (int i = 0; i < arryOfStudentsHeights.Length; i++)
-    {
-        if (PetyasHight > arryOfStudentsHeights[i])
-        {
-            return i + 1;
-        }
-    }
-
-
-    return arryOfStudentsHeights.Length + 1;
-}
-
-void SwapArrayElements(int[] array, int index1, int index2)
-{
-    var temp = array[index1];
-    array[index1] = array[index2];
-    array[index2] = temp;
-}
-
-void SortIntArray(int[] array, bool descendent = false)
-{
-    for (int i = array.Length; i > 0; i--)
-    {
-        Boolean WasSwap = false;
-        for (int j = 0; j < i - 1; j++)
-        {
-            if (descendent)
-            {
-                if (array[j] < array[j + 1])
-                {
-                    SwapArrayElements(array, j, j + 1);
-                    WasSwap = true;
-                }
-            }
-            else
-            {
-                if (array[j] > array[j + 1])
-                {
-                    SwapArrayElements(array, j, j + 1);
-                    WasSwap = true;
-                }
-            }
-        }
-
-        if (!WasSwap)
-        {
-            break;
-        }
-    }
-}
-
-int[] FillArray(int n)
-{
-    int[] result = new int[n];
-    for (int i = 0; i < result.Length; i++)
-    {
-        result[i] = new Random().Next(140, 201);
-    }
-    SortIntArray(result, true);
-    return result;
+    Console.Clear();
+    Console.WriteLine("Знакомство с языками программирования (семинары)");
+    Console.WriteLine("Урок 4. Функции . Доп ЗАДАЧА №1220 . Суперсдвиг");
 }
 
 int InputCoorectNumberInRange(int beginRange, int endRange, string Message)
 {
-    int numberInRange = 0;
+    int numberInRange = beginRange - 1;
     string buildedMessage = $"Intput {Message} in range ({beginRange} < N <= {endRange}):";
-    Console.Write(buildedMessage);
+    Console.WriteLine(buildedMessage);
 
     while (numberInRange < beginRange || numberInRange > endRange)
     {
@@ -111,22 +54,53 @@ int InputCoorectNumberInRange(int beginRange, int endRange, string Message)
     return numberInRange;
 }
 
-Console.Clear();
-Console.WriteLine("Знакомство с языками программирования (семинары)");
-Console.WriteLine("Урок 4. Функции");
+int[] FillIntArray(int itemNumbers, int beginRange, int endRange)
+{
+    int[] result = new int[itemNumbers];
+    for (int i = 0; i < result.Length; i++)
+    {
+        result[i] = new Random().Next(beginRange, endRange + 1);
+    }
 
-int numberOfStudents = InputCoorectNumberInRange(1, 100, "Input number of students");
+    return result;
+}
 
-int[] arryOfStudentsHeights = FillArray(numberOfStudents);
+int[] MoveElementsInArray(int[] array, int move)
+{
+    int[] result = new int[array.Length];
+    for (int i = 0; i < array.Length; i++)
+    {
+        int newIndex = i + move;
+        
+        if (newIndex < 0)
+        {
+            newIndex =  array.Length + newIndex;
+        }else
+        {
+            int dif = newIndex - (array.Length-1);
+            if (dif >0)
+            {
+                newIndex =  dif -1;
+            }
+        }
+        
+        result[newIndex] = array[i];
+    }
+    return result;
+}
 
-int PetyasHight = InputCoorectNumberInRange(140, 200, "Input Petya's hight (in cm) ");
+// ---------------------- MAIN PROGRAM -------------------------
+PrepareProgramHeader();
+int beginRange = 1, endRange = 105;
 
-Console.WriteLine("Student's hights :" + string.Join(",", arryOfStudentsHeights));
-FindPetyasNumber(arryOfStudentsHeights, PetyasHight);
-//
-
-
+int numberOfElementsInArray = InputCoorectNumberInRange(beginRange, endRange, "number of elements in array");
+int[] array = FillIntArray(numberOfElementsInArray, 1, 100);
+int move = InputCoorectNumberInRange(-numberOfElementsInArray, numberOfElementsInArray, " number > 0 to move right , or number < 0 to move left ");
+int[] processedArray = MoveElementsInArray(array, move);
 
 Console.WriteLine("-------------------Result-------------------\n");
-Console.WriteLine($"Petya's order number in line is  {FindPetyasNumber(arryOfStudentsHeights, PetyasHight)}");
+Console.WriteLine($"Initial   array  [{string.Join(",", array)}] ");
+Console.WriteLine($"Processed array  [{string.Join(",", processedArray)}] ");
 Console.WriteLine("\n-------------------Result-------------------");
+
+// ---------------------- MAIN PROGRAM -------------------------
