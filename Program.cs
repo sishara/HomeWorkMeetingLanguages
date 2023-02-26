@@ -1,58 +1,54 @@
-﻿// Задача 43: Напишите программу, которая найдёт точку пересечения двух прямых, заданных уравнениями y = k1 * x + b1, y = k2 * x + b2; значения b1, k1, b2 и k2 задаются пользователем.
+﻿// ЗАДАЧА №822
+// Площадь треугольника
+// (Время: 1 сек. Память: 16 Мб Сложность: 15%)
+// По целочисленным координатам вершин треугольника (x1,y1), (x2,y2) и (x3,y3) требуется вычислить его площадь.
 
-// b1 = 2, k1 = 5, b2 = 4, k2 = 9 -> (-0,5; -0,5)
+// Входные данные
+// Входной файл INPUT.TXT содержит 6 целых чисел x1,y1,x2,y2,x3,y3 – координаты вершин треугольника. Все числа не превышают 10 в 6  по абсолютной величине.
 
+// Выходные данные
+// В выходной файл OUTPUT.TXT выведите точное значение площади заданного треугольника.
 
+// Примеры
+// №	INPUT.TXT	    OUTPUT.TXT
+// 1	2 1 2 4 6 1 	6
+// 2	0 0 0 3 3 0	    4.5
 
 
 void PrepareProgramHeader()
 {
     Console.Clear();
     Console.WriteLine("Знакомство с языками программирования (семинары)");
-    Console.WriteLine("Урок 6. Одномерные массивы. Продолжение.Задача 43");
+    Console.WriteLine("Урок 6. Одномерные массивы. Продолжение. Доп ЗАДАЧА №822");
 }
 
-double[] InputParametres()
-{   
-    double[] result = new double[4];
-    Console.Write("k1 ="); result[0] = Convert.ToInt32(Console.ReadLine());
-    Console.Write("b1 ="); result[1] = Convert.ToInt32(Console.ReadLine());
-    Console.Write("k2 ="); result[2] = Convert.ToInt32(Console.ReadLine());
-    Console.Write("b2 ="); result[3] = Convert.ToInt32(Console.ReadLine());
-
-    return result;
-}
-
-double FindXIntersection(double[] parameters)
-{ 
-    return (parameters[3] - parameters[1]) / (parameters[0] - parameters[2]);
-}
-
-double FindYIntersection(double[] parameters)
+int[] InputCoordinates(int pointNumber)
 {
-    return parameters[0] * ((parameters[3] - parameters[1]) / (parameters[0] - parameters[2])) + parameters[1];
-}
-string FindIntersection(double[] parameters)
-{
-    
-    if(parameters[0] == parameters[2])
+    Console.WriteLine($"Input X , Y coordinates for point #{pointNumber}");
+    int[] coord = Console.ReadLine().Split().Select(x => int.Parse(x)).ToArray();
+
+    while (coord.Length < 2 || coord[0] > 1000000 || coord[1] > 1000000)
     {
-        if (parameters[1] == parameters[3])
-            return "The lines coincide";
-        else
-            return "The lines are paralell";
+        Console.WriteLine("Input correct coordinates");
+        coord = Console.ReadLine().Split().Select(x => int.Parse(x)).ToArray();
     }
-
-    return $"({FindXIntersection(parameters).ToString()}; {FindYIntersection(parameters).ToString()})";
+    return coord;
 }
 
+double CalculateTriangleArea(int[] point1, int[] point2, int[] point3)
+{
+    return Convert.ToDouble(Math.Abs((point1[0] * (point2[1] - point3[1]) + point2[0] * (point3[1] - point1[1]) + point3[0] * (point1[1] - point2[1])))) / 2;
+}
 
 // ---------------------- MAIN PROGRAM -------------------------
 PrepareProgramHeader();
-double [] parameters = InputParametres();
+int[] point1 = InputCoordinates(1);
+int[] point2 = InputCoordinates(2);
+int[] point3 = InputCoordinates(3);
+
 
 Console.WriteLine("-------------------Result-------------------\n");
-Console.WriteLine($"{FindIntersection(parameters)}");
+Console.WriteLine(CalculateTriangleArea(point1, point2, point3));
 Console.WriteLine("\n-------------------Result-------------------");
 
 // ---------------------- MAIN PROGRAM -------------------------
