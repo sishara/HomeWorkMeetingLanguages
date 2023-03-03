@@ -1,54 +1,60 @@
-﻿// ЗАДАЧА №822
-// Площадь треугольника
-// (Время: 1 сек. Память: 16 Мб Сложность: 15%)
-// По целочисленным координатам вершин треугольника (x1,y1), (x2,y2) и (x3,y3) требуется вычислить его площадь.
+﻿// Задача 47. Задайте двумерный массив размером m×n, заполненный случайными вещественными числами.
 
-// Входные данные
-// Входной файл INPUT.TXT содержит 6 целых чисел x1,y1,x2,y2,x3,y3 – координаты вершин треугольника. Все числа не превышают 10 в 6  по абсолютной величине.
+// m = 3, n = 4.
 
-// Выходные данные
-// В выходной файл OUTPUT.TXT выведите точное значение площади заданного треугольника.
+// 0,5 7 -2 -0,2
 
-// Примеры
-// №	INPUT.TXT	    OUTPUT.TXT
-// 1	2 1 2 4 6 1 	6
-// 2	0 0 0 3 3 0	    4.5
+// 1 -3,3 8 -9,9
+
+// 8 7,8 -7,1 9
 
 
 void PrepareProgramHeader()
 {
     Console.Clear();
     Console.WriteLine("Знакомство с языками программирования (семинары)");
-    Console.WriteLine("Урок 6. Одномерные массивы. Продолжение. Доп ЗАДАЧА №822");
+    Console.WriteLine("Урок 7. Двумерные массивы. Задача 47");
 }
 
-int[] InputCoordinates(int pointNumber)
+double[,] InputArray()
 {
-    Console.WriteLine($"Input X , Y coordinates for point #{pointNumber}");
-    int[] coord = Console.ReadLine().Split().Select(x => int.Parse(x)).ToArray();
-
-    while (coord.Length < 2 || coord[0] > 1000000 || coord[1] > 1000000)
+    Console.WriteLine("Input m :");
+    int m = Convert.ToInt32(Console.ReadLine());
+    Console.WriteLine("Input n :");
+    int n = Convert.ToInt32(Console.ReadLine());
+    double[,] array = new double[m, n];
+    Random random = new Random();
+    for (int i = 0; i < array.GetLength(0); i++)
     {
-        Console.WriteLine("Input correct coordinates");
-        coord = Console.ReadLine().Split().Select(x => int.Parse(x)).ToArray();
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            array[i, j] = Math.Round(random.NextDouble() * random.Next(-10000, 10001),1);
+        }
     }
-    return coord;
+
+    return array;
 }
 
-double CalculateTriangleArea(int[] point1, int[] point2, int[] point3)
+void OutputArray(double[,] array)
 {
-    return Convert.ToDouble(Math.Abs((point1[0] * (point2[1] - point3[1]) + point2[0] * (point3[1] - point1[1]) + point3[0] * (point1[1] - point2[1])))) / 2;
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            Console.Write(array[i, j] + "  ");
+        }
+        Console.WriteLine();
+    }
 }
 
 // ---------------------- MAIN PROGRAM -------------------------
 PrepareProgramHeader();
-int[] point1 = InputCoordinates(1);
-int[] point2 = InputCoordinates(2);
-int[] point3 = InputCoordinates(3);
+
+double[,] array = InputArray();
 
 
 Console.WriteLine("-------------------Result-------------------\n");
-Console.WriteLine(CalculateTriangleArea(point1, point2, point3));
+OutputArray(array);
 Console.WriteLine("\n-------------------Result-------------------");
 
 // ---------------------- MAIN PROGRAM -------------------------
