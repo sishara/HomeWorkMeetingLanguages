@@ -1,16 +1,10 @@
-﻿// Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
-
-// Например, задан массив:
-
-// 1 4 7 2
-
-// 5 9 2 3
-
-// 8 4 2 4
-
-// 5 2 6 7
-
-// Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
+﻿// Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
+// Например, даны 2 матрицы:
+// 2 4 | 3 4
+// 3 2 | 3 3
+// Результирующая матрица будет:
+// 18 20
+// 15 18
 
 
 
@@ -19,7 +13,7 @@ void PrepareProgramHeader()
 {
     Console.Clear();
     Console.WriteLine("Знакомство с языками программирования (семинары)");
-    Console.WriteLine("Урок 8. Двумерные массивы. Продолжение . Задача 56");
+    Console.WriteLine("Урок 8. Двумерные массивы. Продолжение . Задача 58");
 }
 
 int[,] InputTwoDimensionalArray(int m, int n)
@@ -49,49 +43,77 @@ void OutputArray(int[,] array)
     }
 }
 
-int GetLineWithLowestSum(int[,] array)
+int[,] TestCaseArray1()
 {
-    int rowCount = array.GetLength(0);
-    int colCount = array.GetLength(1);
+    return new int[2, 2] { { 2, 4 }, { 3, 2 } };
+}
 
-    int lowestSumIndex = 0;
-    int lowestSum = int.MaxValue;
+int[,] TestCaseArray2()
+{
+    return new int[2, 2] { { 3, 4 }, { 3, 3 } };
+}
 
-    for (int i = 0; i < rowCount; i++)
+
+int[,] MatrixProduct(int[,] matrixA, int[,] matrixB)
+{
+    int rowsA = matrixA.GetLength(0);
+    int colsA = matrixA.GetLength(1);
+    int rowsB = matrixB.GetLength(0);
+    int colsB = matrixB.GetLength(1);
+
+    if (colsA != rowsB)
     {
-        int sum = 0;
-        for (int j = 0; j < colCount; j++)
-        {
-            sum += array[i, j];
-        }
+        throw new ArgumentException("Matrices cannot be multiplied");
+    }
 
-        
-        if (sum < lowestSum)
+    int[,] result = new int[rowsA, colsB];
+
+    for (int i = 0; i < rowsA; i++)
+    {
+        for (int j = 0; j < colsB; j++)
         {
-            lowestSum = sum;
-            lowestSumIndex = i;
+            int sum = 0;
+            for (int k = 0; k < colsA; k++)
+            {
+                sum += matrixA[i, k] * matrixB[k, j];
+            }
+            result[i, j] = sum;
         }
     }
 
-    return lowestSumIndex +1;
+    return result;
 }
+
 
 
 // ---------------------- MAIN PROGRAM -------------------------
 PrepareProgramHeader();
 
-Console.WriteLine("Input  1 <= m <= 100:");
-int m = Convert.ToInt32(Console.ReadLine());
-Console.WriteLine("Input  1 <= m <= 100:");
-int n = Convert.ToInt32(Console.ReadLine());
+int[,] array = TestCaseArray1();
+int[,] array2 = TestCaseArray2();
 
-int[,] array = InputTwoDimensionalArray(m, n);
+Console.WriteLine("Choose your destiny : 1.Fixed test case . 2(or sothing else) random array :");
+int destiny = Convert.ToInt32(Console.ReadLine());
+if (destiny != 1)
+{
+    Console.WriteLine("Input  1 <= m <= 100:");
+    int m = Convert.ToInt32(Console.ReadLine());
+    array = InputTwoDimensionalArray(m, m);
+    array2 = InputTwoDimensionalArray(m, m);
+}
+
+int[,] matrixProduct = MatrixProduct(array, array2);
 
 
 Console.WriteLine("-------------------Result-------------------\n");
+Console.WriteLine("Array n1 :");
 OutputArray(array);
 Console.WriteLine("\n--------------------------------------------");
-Console.WriteLine($"The line with the lowest sum is {GetLineWithLowestSum(array)}");
+Console.WriteLine("Array n2 :");
+OutputArray(array2);
+Console.WriteLine("\n--------------------------------------------");
+Console.WriteLine("Product array :");
+OutputArray(matrixProduct);
 
 Console.WriteLine("\n-------------------Result-------------------");
 
