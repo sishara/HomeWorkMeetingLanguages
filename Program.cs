@@ -1,18 +1,30 @@
-﻿// Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
+﻿//ЗАДАЧА №1236
+// Транспонирование - 4
+// (Время: 1 сек. Память: 16 Мб Сложность: 15%)
+// Задана целочисленная матрица, состоящая из N строк и M столбцов. Требуется транспонировать ее относительно горизонтали.
 
-// Например, задан массив:
-// 1 4 7 2
-// 5 9 2 3
-// 8 4 2 4
+// Входные данные
+// Первая строка входного файла INPUT.TXT содержит два натуральных числа N и M – количество строк и столбцов матрицы. В каждой из последующих N строк записаны M целых чисел – элементы матрицы. Все числа во входных данных не превышают 100 по абсолютной величине.
 
-// Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
+// Выходные данные
+// В выходной файл OUTPUT.TXT выведите матрицу, полученную транспонированием исходной матрицы относительно горизонтали.
+
+// Пример
+// №	INPUT.TXT	OUTPUT.TXT
+// 1	3 4
+// 5 9 2 6
+// 6 2 4 3
+// 1 2 8 7	1 2 8 7
+// 6 2 4 3
+// 5 9 2 6
+
 
 
 void PrepareProgramHeader()
 {
     Console.Clear();
     Console.WriteLine("Знакомство с языками программирования (семинары)");
-    Console.WriteLine("Урок 7. Двумерные массивы. Задача 52");
+    Console.WriteLine("Урок 7. Двумерные массивы. Доп задача №1236");
 }
 
 int[,] InputArray()
@@ -27,7 +39,7 @@ int[,] InputArray()
     {
         for (int j = 0; j < array.GetLength(1); j++)
         {
-            array[i, j] = random.Next(0, 10001);
+            array[i, j] = random.Next(0, 101);
         }
     }
 
@@ -46,27 +58,20 @@ void OutputArray(int[,] array)
     }
 }
 
-string CalculateMidArithemetic(int[,] array)
+void TrnasponateVsHorizont(int[,] array)
 {
-    string result = string.Empty;
-    double[] midValues = new double[array.GetLength(1)];
-    for (int i = 0; i < array.GetLength(0); i++)
+    int temp = 0;
+    for (int i = 0; i < array.GetLength(0) / 2; i++)
     {
         for (int j = 0; j < array.GetLength(1); j++)
         {
-            midValues[j] = midValues[j] + array[i,j];
+            temp = array[i, j];
+            array[i, j] = array[array.GetLength(0) - i-1, j];
+            array[array.GetLength(0) - i-1, j] = temp;
+
         }
     }
 
-
-    for (int i = 0; i < midValues.GetLength(0); i++)
-    {
-        
-       midValues[i] = Convert.ToDouble( midValues[i]) / array.GetLength(0);
-    }
-
-    
-    return string.Join(";",midValues);
 }
 
 // ---------------------- MAIN PROGRAM -------------------------
@@ -77,7 +82,9 @@ int[,] array = InputArray();
 
 Console.WriteLine("-------------------Result-------------------\n");
 OutputArray(array);
-Console.WriteLine(CalculateMidArithemetic(array));
+TrnasponateVsHorizont(array);
+Console.WriteLine("\n--------------------------------------------");
+OutputArray(array);
 Console.WriteLine("\n-------------------Result-------------------");
 
 // ---------------------- MAIN PROGRAM -------------------------
