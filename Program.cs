@@ -1,23 +1,18 @@
-﻿// Задача 50. Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, 
-// что такого элемента нет.
+﻿// Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
 
 // Например, задан массив:
-
 // 1 4 7 2
-
 // 5 9 2 3
-
 // 8 4 2 4
 
-// 1 7 -> такой позиции в массиве нет
-// 1 2 -> На данной позиции находиться элемент 4
+// Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
 
 
 void PrepareProgramHeader()
 {
     Console.Clear();
     Console.WriteLine("Знакомство с языками программирования (семинары)");
-    Console.WriteLine("Урок 7. Двумерные массивы. Задача 50");
+    Console.WriteLine("Урок 7. Двумерные массивы. Задача 52");
 }
 
 int[,] InputArray()
@@ -51,15 +46,27 @@ void OutputArray(int[,] array)
     }
 }
 
-string FindPosition(int[,] array)
+string CalculateMidArithemetic(int[,] array)
 {
-    Console.WriteLine("Input coordinates m , n in bidimensional array :");
-    int[] inputCoord = Console.ReadLine().Split().Select(int.Parse).ToArray();
-    if (inputCoord[0] > array.GetLength(0)||inputCoord[1] > array.GetLength(1))
+    string result = string.Empty;
+    double[] midValues = new double[array.GetLength(1)];
+    for (int i = 0; i < array.GetLength(0); i++)
     {
-        return "This position in array don't exist";
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            midValues[j] = midValues[j] + array[i,j];
+        }
     }
-    return $"Value at this position is {array[inputCoord[0]-1,inputCoord[1]-1]}";
+
+
+    for (int i = 0; i < midValues.GetLength(0); i++)
+    {
+        
+       midValues[i] = Convert.ToDouble( midValues[i]) / array.GetLength(0);
+    }
+
+    
+    return string.Join(";",midValues);
 }
 
 // ---------------------- MAIN PROGRAM -------------------------
@@ -70,7 +77,7 @@ int[,] array = InputArray();
 
 Console.WriteLine("-------------------Result-------------------\n");
 OutputArray(array);
-Console.WriteLine(FindPosition(array));
+Console.WriteLine(CalculateMidArithemetic(array));
 Console.WriteLine("\n-------------------Result-------------------");
 
 // ---------------------- MAIN PROGRAM -------------------------
