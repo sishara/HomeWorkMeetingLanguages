@@ -1,101 +1,40 @@
-﻿// Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
-// Например, на выходе получается вот такой массив:
-// 01 02 03 04
-// 12 13 14 05
-// 11 16 15 06
-// 10 09 08 07
+﻿// Задача 66: Задайте значения M и N. Напишите программу, которая найдёт сумму натуральных элементов в промежутке от M до N.
+
+// M = 1; N = 15 -> 120
+// M = 4; N = 8. -> 30
 
 
 void PrepareProgramHeader()
 {
     Console.Clear();
     Console.WriteLine("Знакомство с языками программирования (семинары)");
-    Console.WriteLine("Урок 8. Двумерные массивы. Продолжение . Задача 62");
+    Console.WriteLine("Урок 9. Рекурсия. Задача 66");
 }
 
-string FillTwoDigits(int number)
+int SumOfNaturalNumbersBetween(int M, int N)
 {
-    if (number.ToString().Length > 1)
-        return number.ToString();
-
-    return $"0{number}";
-}
-void OutputTwoDimensionalArray(string[,] array)
-{
-    int length1 = array.GetLength(0);
-    int length2 = array.GetLength(1);
-    for (int i = 0; i < length1; i++)
-    {
-        for (int j = 0; j < length2; j++)
-        {
-            Console.Write(array[i, j] + " ");
-        }
-        Console.WriteLine();
-    }
-}
-
-
-
-
-
-string[,] SpiraleTriangale()
-{
-    string[,] spiral = new string[4, 4];
-    int value = 1;
-
-    int top = 0, bottom = 3, left = 0, right = 3; 
-    int direction = 0; 
-
-    while (top <= bottom && left <= right)
-    {
-       
-        if (direction == 0)
-        {
-            for (int i = left; i <= right; i++)
-            {
-                spiral[top, i] = FillTwoDigits(value++);
-            }
-            top++;
-        }
-       
-        else if (direction == 1)
-        {
-            for (int i = top; i <= bottom; i++)
-            {
-                spiral[i, right] = FillTwoDigits(value++);
-            }
-            right--;
-        }
-       
-        else if (direction == 2)
-        {
-            for (int i = right; i >= left; i--)
-            {
-                spiral[bottom, i] = FillTwoDigits(value++);
-            }
-            bottom--;
-        }
-       
-        else if (direction == 3)
-        {
-            for (int i = bottom; i >= top; i--)
-            {
-                spiral[i, left] = FillTwoDigits(value++);
-            }
-            left++;
-        }
-
-        direction = (direction + 1) % 4; // change direction
-    }
-
-    return spiral;
-
+    if (M < N)
+        return M + SumOfNaturalNumbersBetween(M + 1, N);
+    return M;
 }
 
 // ---------------------- MAIN PROGRAM -------------------------
 PrepareProgramHeader();
+Console.WriteLine("Input M :");
+int startInterval = Convert.ToInt32(Console.ReadLine());
+
+Console.WriteLine($"Input N > {startInterval}:");
+int endInterval = Convert.ToInt32(Console.ReadLine());
+
+while (endInterval <= startInterval)
+{
+    Console.WriteLine($"Input N > {startInterval}:");
+    endInterval = Convert.ToInt32(Console.ReadLine());
+}
+
+
 Console.WriteLine("-------------------Result-------------------\n");
-OutputTwoDimensionalArray(SpiraleTriangale());
+Console.Write(SumOfNaturalNumbersBetween(startInterval, endInterval));
 Console.WriteLine("\n-------------------Result-------------------");
 
 // ---------------------- MAIN PROGRAM -------------------------

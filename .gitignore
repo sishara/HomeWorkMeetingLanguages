@@ -3,3 +3,6 @@ bin
 obj
 HomeWork.csproj
 C#_Tests.csproj
+.vscode/launch.json
+.vscode/tasks.json
+.gitignore
