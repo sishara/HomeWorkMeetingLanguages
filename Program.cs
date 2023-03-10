@@ -1,40 +1,33 @@
-﻿// Задача 66: Задайте значения M и N. Напишите программу, которая найдёт сумму натуральных элементов в промежутке от M до N.
-
-// M = 1; N = 15 -> 120
-// M = 4; N = 8. -> 30
+﻿// Задача 68: Напишите программу вычисления функции Аккермана с помощью рекурсии. Даны два неотрицательных числа m и n.
+// m = 2, n = 3 -> A(m,n) = 9
+// m = 3, n = 2 -> A(m,n) = 29
 
 
 void PrepareProgramHeader()
 {
     Console.Clear();
     Console.WriteLine("Знакомство с языками программирования (семинары)");
-    Console.WriteLine("Урок 9. Рекурсия. Задача 66");
+    Console.WriteLine("Урок 9. Рекурсия. Задача 68");
 }
 
-int SumOfNaturalNumbersBetween(int M, int N)
+int Ackerman(int x, int y)
 {
-    if (M < N)
-        return M + SumOfNaturalNumbersBetween(M + 1, N);
-    return M;
+    if (x == 0) return y + 1;
+    if (y == 0) return Ackerman(x - 1, 1);
+    return Ackerman(x - 1, Ackerman(x, y - 1));
 }
 
 // ---------------------- MAIN PROGRAM -------------------------
 PrepareProgramHeader();
 Console.WriteLine("Input M :");
-int startInterval = Convert.ToInt32(Console.ReadLine());
+int m = Convert.ToInt32(Console.ReadLine());
 
-Console.WriteLine($"Input N > {startInterval}:");
-int endInterval = Convert.ToInt32(Console.ReadLine());
-
-while (endInterval <= startInterval)
-{
-    Console.WriteLine($"Input N > {startInterval}:");
-    endInterval = Convert.ToInt32(Console.ReadLine());
-}
+Console.WriteLine($"Input N :");
+int n = Convert.ToInt32(Console.ReadLine());
 
 
 Console.WriteLine("-------------------Result-------------------\n");
-Console.Write(SumOfNaturalNumbersBetween(startInterval, endInterval));
+Console.Write(Ackerman(m, n));
 Console.WriteLine("\n-------------------Result-------------------");
 
 // ---------------------- MAIN PROGRAM -------------------------
